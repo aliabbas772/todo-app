@@ -23,8 +23,8 @@ jobs:
 
       # 3. Install dependencies
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       # 4. Run tests
       - name: Run tests
-        run: yarn test
+        run: npm test
