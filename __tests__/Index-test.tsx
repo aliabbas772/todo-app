@@ -1,9 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
-import Index from '../app/index';
+import AddTodo from '@/app/components/AddTodo';
 
-describe('Index Component', () => {
+
   it('renders without crashing', () => {
-    render(<Index />);
+    render(<AddTodo />);
   });
-});

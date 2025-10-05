@@ -7,7 +7,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/launch_screen"
+            android:src="@drawable/splashscreen_image"
             android:tileMode="disabled" />
     </item>
 </layer-list>

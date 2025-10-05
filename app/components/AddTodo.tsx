@@ -1,21 +1,19 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { ToDoType } from '..';
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { ToDoType } from '../App';
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles';
 import { View } from 'react-native';
+import { AppContext } from '../store';
+import { useTodos } from '../storezust';
 
-interface AddTodoProps {
-  setTodos: Dispatch<SetStateAction<ToDoType[]>>;
-  todos: ToDoType[];
-  isDark: 'dark' | 'light';
-}
-
-const AddTodo = ({ setTodos, todos, isDark }: AddTodoProps) => {
+const AddTodo = () => {
 
   const [todoText, setTodoText] = useState('');
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const addRef = useRef<TextInput>(null);
+  const { theme } = useContext(AppContext);
+  const { todos, setTodos } = useTodos();
 
   const addTodo = () => {
     if (!todoText) {
@@ -35,7 +33,6 @@ const AddTodo = ({ setTodos, todos, isDark }: AddTodoProps) => {
 
   return (
     <KeyboardAvoidingView style={styles.addTodoPage} behavior="padding">
-
       {isNoteOpen ?
         <View style={styles.noteContainer}>
           <TextInput
@@ -49,17 +46,17 @@ const AddTodo = ({ setTodos, todos, isDark }: AddTodoProps) => {
             autoFocus
           />
           <View style={styles.cancelsave}>
-          <TouchableOpacity style={[styles.buttonFull, isDark === 'dark' && { backgroundColor: 'white' }]} onPress={() => { addTodo() }}>
-            <Ionicons name="save" size={34} color={isDark === 'dark' ? "#000" : "#fff"} />
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.buttonFull, isDark === 'dark' && { backgroundColor: 'white' }]} onPress={() => { setIsNoteOpen(false) }}>
-            <Ionicons name="close" size={34} color={isDark === 'dark' ? "#000" : "#fff"} />
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.buttonFull, theme === 'dark' && { backgroundColor: 'white' }]} onPress={() => { addTodo() }}>
+              <Ionicons name="save" size={34} color={theme === 'dark' ? "#000" : "#fff"} />
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.buttonFull, theme === 'dark' && { backgroundColor: 'white' }]} onPress={() => { setIsNoteOpen(false) }}>
+              <Ionicons name="close" size={34} color={theme === 'dark' ? "#000" : "#fff"} />
+            </TouchableOpacity>
           </View>
         </View>
         :
-        <TouchableOpacity style={[styles.addButton, isDark === 'dark' && { backgroundColor: 'white' }]} onPress={() => { setIsNoteOpen(true) }}>
-          <Ionicons name="add" size={34} color={isDark === 'dark' ? "#000" : "#fff"} />
+        <TouchableOpacity style={[styles.addButton, theme === 'dark' && { backgroundColor: 'white' }]} onPress={() => { setIsNoteOpen(true) }}>
+          <Ionicons name="add" size={34} color={theme === 'dark' ? "#000" : "#fff"} />
         </TouchableOpacity>
       }
 
